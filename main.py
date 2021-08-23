@@ -85,10 +85,12 @@ class ABS_Cfae:
             d = json.loads(response.text)
 
             self.total_page = jsonpath(d, '$.totalPage')
-            if self.total_page: self.total_page = self.total_page[0]
+            if self.total_page:
+                self.total_page = self.total_page[0]
 
             self.total_count = jsonpath(d, '$.totalCount')
-            if self.total_count: self.total_count = self.total_count[0]
+            if self.total_count:
+                self.total_count = self.total_count[0]
             print(f'查询结果数量: {self.total_count}')
 
     def get_info_ids(self, page_no):
@@ -141,10 +143,10 @@ class ABS_Cfae:
 
         response = requests.request("POST", self.detail_url, headers=headers, data=payload)
 
-        if response.status_code == 200:
-            self.file_list = json.loads(response.text)
-        else:
+        if response.status_code != 200:
             print('Error: 详情页请求失败')
+
+        self.file_list = json.loads(response.text)
 
     def download(self, path):
         """
@@ -155,8 +157,10 @@ class ABS_Cfae:
         for file in self.file_list:
             self.file_name = file['FILE_NAME']
             self.file_add = file['FILE_ADDRESS']
+
             if self.menuId == self.menuId_2 and "发行说明书" not in self.file_name:
                 continue
+
             file_path = os.path.join(path, self.file_name)
             url_path = f'fileName={self.file_name}&fileAdd={self.file_add}'
             url = self.download_url + url_path
@@ -173,9 +177,12 @@ class ABS_Cfae:
                 'Cookie': 'zh_choose=n; JSESSIONID=YPyC_B7CkQG2ydAIPp28h5PIJ65Gq0kA5EVWfhgKjX8-d1k0WVBB!-553896300',
                 'Cache-Control': 'max-age=0'
             }
+
             response = requests.request("GET", url, headers=headers, data=payload)
+
             if response.status_code == 200:
                 print('访问成功！')
+
                 if os.path.exists(file_path):
                     print(f'文件已存在，不用下载：{self.file_name}')
                 else:
