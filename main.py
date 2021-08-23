@@ -24,7 +24,7 @@ from jsonpath import jsonpath
 """
 
 
-class ABS_Cfae():
+class ABS_Cfae:
     def __init__(self):
         self.current_dir = os.path.abspath(os.path.dirname(__file__))
         self.list_url = 'https://www.cfae.cn/connector/selectAllInfoNew'  # 列表页访问URL
@@ -191,6 +191,7 @@ class ABS_Cfae():
     def go(self, menuId, path):
         """
         根据不同的 menuId 爬取不同阶段的文件，存放在 path 目录下
+        :param path: 路径
         :param menuId: menuId
         :return:
         """
