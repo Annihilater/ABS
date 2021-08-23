@@ -65,7 +65,6 @@ class ABS_Cfae:
     def get_total(self):
         """
         获取查询结果页数
-        :param menuId: menuId
         :return:
         """
         payload = f"title=&pageNumber=1&menuId={self.menuId}&bondType=201&timeStart={self.timeStart}&timeEnd={self.timeEnd}&bondFullName=&trusteeOrg=&disOrg=&leadManager="
@@ -95,6 +94,7 @@ class ABS_Cfae:
     def get_info_ids(self, page_no):
         """
         获取 info_id 列表
+        :param page_no: 页码
         :return:
         """
         payload = f"title=&pageNumber={page_no}&menuId={self.menuId}&bondType=201&timeStart={self.timeStart}&timeEnd={self.timeEnd}&bondFullName=&trusteeOrg=&disOrg=&leadManager="
